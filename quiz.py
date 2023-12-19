@@ -4,10 +4,10 @@ import random as ran
 def select_question(bank, used_questions, question_amount):
     ran.seed()
     
-    question_number = ran.randint(1, question_amount)
+    question_number = ran.randint(1, bank.shape[0])
     
     while question_number in used_questions:
-        question_number = ran.randint(1, question_amount)
+        question_number = ran.randint(1, bank.shape[0])
 
     used_questions.append(question_number)
     question = bank['Pregunta'].loc[bank.index[question_number-1]]
@@ -98,9 +98,9 @@ def main():
 
     score = 0
     used_questions = []
-    path = 'Preguntas.xlsx' 
+    path = 'Question_bank.csv' 
     sheet = 'Test'
-    bank = pd.read_excel(path, sheet_name=sheet)
+    bank = pd.read_csv(path, delimiter=";")
     number_of_questions = question_amount(bank)
 
     for i in range(1, number_of_questions + 1):
